@@ -109,13 +109,14 @@ cd $SOURCES_DIR
 rm -rf $SOURCES_DIR/ton
 
 # Cloning MevTON
-git clone --recursive https://github.com/mevton-labs/ton.git  # https://github.com/ton-blockchain/ton.git
+git clone https://github.com/mevton-labs/ton.git  # https://github.com/ton-blockchain/ton.git
 
 echo "checkout to ${ton_node_version}"
 
 if [ "${ton_node_version}" != "master" ]; then
   cd $SOURCES_DIR/ton
   git checkout ${ton_node_version}
+  git submodule update --init --recursive
   cd ../
 fi
 
