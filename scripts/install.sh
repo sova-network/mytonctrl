@@ -12,11 +12,11 @@ if [ "$(id -u)" != "0" ]; then
     exit 1
 fi
 
-author="ton-blockchain"
+author="mevton-labs" #"ton-blockchain"
 repo="mytonctrl"
 branch="master"
 network="mainnet"
-ton_node_version="master"  # Default version
+ton_node_version="mev_v2024.09"  # "master" Default version
 
 
 show_help_and_exit() {

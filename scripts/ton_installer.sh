@@ -1,4 +1,3 @@
-
 #!/bin/bash
 set -e
 
@@ -108,7 +107,9 @@ make build_libs -j$(nproc)
 echo -e "${COLOR}[3/6]${ENDC} Preparing for compilation"
 cd $SOURCES_DIR
 rm -rf $SOURCES_DIR/ton
-git clone --recursive https://github.com/ton-blockchain/ton.git
+
+# Cloning MevTON
+git clone --recursive https://github.com/mevton-labs/ton.git  # https://github.com/ton-blockchain/ton.git
 
 echo "checkout to ${ton_node_version}"
 
