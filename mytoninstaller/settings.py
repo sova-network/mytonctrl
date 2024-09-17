@@ -75,7 +75,7 @@ def FirstNodeSettings(local):
 	local.add_log("First start validator - create config.json", "debug")
 	args = [validatorAppPath, "--global-config", globalConfigPath, "--db", ton_db_dir, "--ip", addr, "--logname", tonLogPath]
 	process = subprocess.run(args)
-	output = process.stdout.decode("utf-8")
+	output = process.returncode
 	local.add_log(validatorAppPath + ":" + output, "debug")
 	# Скачать дамп
 	DownloadDump(local)
