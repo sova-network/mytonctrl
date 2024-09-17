@@ -76,7 +76,8 @@ def FirstNodeSettings(local):
 	args = [validatorAppPath, "--global-config", globalConfigPath, "--db", ton_db_dir, "--ip", addr, "--logname", tonLogPath]
 	process = subprocess.run(args)
 	output = process.returncode
-	local.add_log(validatorAppPath + ": {code}".format(code=output), "debug")
+	error = process.stderr
+	local.add_log(validatorAppPath + ": Exit code:{code}; Error: {error}".format(code=output, error=error), "debug")
 	# Скачать дамп
 	DownloadDump(local)
 
