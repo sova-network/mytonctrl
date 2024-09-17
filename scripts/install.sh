@@ -140,6 +140,7 @@ if [ "$parent_name" = "sudo" ] || [ "$parent_name" = "su" ] || [ "$parent_name" 
     user=$(logname)
 fi
 echo "User: $user"
+echo "python3 -m mytoninstaller -u ${user} -t ${telemetry} --dump ${dump} -m ${mode}"
 python3 -m mytoninstaller -u ${user} -t ${telemetry} --dump ${dump} -m ${mode}
 
 # set migrate version

@@ -9,10 +9,10 @@ import json
 import pkg_resources
 
 from mypylib.mypylib import (
-	add2systemd, 
-	get_dir_from_path, 
-	run_as_root, 
-	color_print, 
+	add2systemd,
+	get_dir_from_path,
+	run_as_root,
+	color_print,
 	ip2int,
 	Dict
 )
@@ -74,8 +74,9 @@ def FirstNodeSettings(local):
 	# Первый запуск
 	local.add_log("First start validator - create config.json", "debug")
 	args = [validatorAppPath, "--global-config", globalConfigPath, "--db", ton_db_dir, "--ip", addr, "--logname", tonLogPath]
-	subprocess.run(args)
-
+	process = subprocess.run(args)
+	output = process.stdout.decode("utf-8")
+	local.add_log(validatorAppPath + ":" + output, "debug")
 	# Скачать дамп
 	DownloadDump(local)
 
