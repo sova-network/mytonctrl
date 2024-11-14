@@ -56,6 +56,12 @@ def Init(local, console):
 	local.buffer.cport = random.randint(2000, 65000)
 	local.buffer.lport = random.randint(2000, 65000)
 
+	if os.getenv('CONSOLE_PORT'):
+		local.buffer.cport = int(os.getenv('CONSOLE_PORT'))
+	if os.getenv('LITE_PORT'):
+		local.buffer.lport = int(os.getenv('LITE_PORT'))
+
+
 	# this funciton injects MyPyClass instance
 	def inject_globals(func):
 		args = []
@@ -70,7 +76,7 @@ def Init(local, console):
 	console.AddItem("status", inject_globals(Status), "Print TON component status")
 	console.AddItem("set_node_argument", inject_globals(set_node_argument), "Set node argument")
 	console.AddItem("enable", inject_globals(Enable), "Enable some function")
-	console.AddItem("update", inject_globals(Enable), "Update some function: 'JR' - jsonrpc.  Example: 'update JR'") 
+	console.AddItem("update", inject_globals(Enable), "Update some function: 'JR' - jsonrpc.  Example: 'update JR'")
 	console.AddItem("plsc", inject_globals(PrintLiteServerConfig), "Print lite-server config")
 	console.AddItem("clcf", inject_globals(CreateLocalConfigFile), "Create lite-server config file")
 	console.AddItem("print_ls_proxy_config", inject_globals(print_ls_proxy_config), "Print ls-proxy config")
