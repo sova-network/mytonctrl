@@ -27,7 +27,10 @@ ENDC='\033[0m'
 
 # На OSX нет такой директории по-умолчанию, поэтому создаем...
 SOURCES_DIR=/usr/src
+#SOURCES_DIR=/var/ton-work/src
 BIN_DIR=/usr/bin
+#BIN_DIR=/usr/local/bin
+
 if [[ "$OSTYPE" =~ darwin.* ]]; then
 	SOURCES_DIR=/usr/local/src
 	BIN_DIR=/usr/local/bin

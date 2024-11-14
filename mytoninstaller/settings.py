@@ -67,7 +67,13 @@ def FirstNodeSettings(local):
 
 	# Получить внешний ip адрес
 	ip = get_own_ip()
+	# get ip from env
+	if os.getenv('PUBLIC_IP'):
+		ip = os.getenv('PUBLIC_IP')
 	vport = random.randint(2000, 65000)
+	# get vport from env
+	if os.getenv('VALIDATOR_PORT'):
+		vport = os.getenv('VALIDATOR_PORT')
 	addr = "{ip}:{vport}".format(ip=ip, vport=vport)
 	local.add_log("Use addr: " + addr, "debug")
 

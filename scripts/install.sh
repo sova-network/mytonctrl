@@ -96,7 +96,9 @@ fi
 
 echo -e "${COLOR}[2/5]${ENDC} Checking for required TON components"
 SOURCES_DIR=/usr/src
+#SOURCES_DIR=/var/ton-work/src
 BIN_DIR=/usr/bin
+#BIN_DIR=/usr/local/bin
 
 # create dirs for OSX
 if [[ "$OSTYPE" =~ darwin.* ]]; then
