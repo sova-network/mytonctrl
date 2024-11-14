@@ -40,12 +40,6 @@ def FirstNodeSettings(local):
 	else:
 		archive_ttl = 2592000 if local.buffer.mode == 'liteserver' else 86400
 
-	# Проверить конфигурацию
-	if os.path.isfile(vconfig_path):
-		local.add_log(f"Validators config '{vconfig_path}' already exist. Break FirstNodeSettings fuction", "warning")
-		return
-	#end if
-
 	# Создать пользователя
 	file = open("/etc/passwd", 'rt')
 	text = file.read()
@@ -56,14 +50,26 @@ def FirstNodeSettings(local):
 		subprocess.run(args)
 	#end if
 
+	# Прописать автозагрузку
+	cpus = psutil.cpu_count() - 1
+	cmd = f"{validatorAppPath} --threads {cpus} --daemonize --global-config {globalConfigPath} --db {ton_db_dir} --archive-ttl {archive_ttl} --verbosity 3"
+	add2systemd(name="validator", user=vuser, start=cmd) # post="/usr/bin/python3 /usr/src/mytonctrl/mytoncore.py -e \"validator down\""
+	if os.path.isfile("/etc/systemd/system/validator.service"):
+		local.add_log(f"Add validator to systemd", "debug")
+	else:
+		local.add_log(f"Error: validator.service not found", "error")
+
+	# Проверить конфигурацию
+	if os.path.isfile(vconfig_path):
+		local.add_log(f"Validators config '{vconfig_path}' already exist. Break FirstNodeSettings fuction", "warning")
+		return
+	#end if
+
+
 	# Подготовить папки валидатора
 	os.makedirs(ton_db_dir, exist_ok=True)
 	os.makedirs(keys_dir, exist_ok=True)
 
-	# Прописать автозагрузку
-	cpus = psutil.cpu_count() - 1
-	cmd = f"{validatorAppPath} --threads {cpus} --daemonize --global-config {globalConfigPath} --db {ton_db_dir} --logname {tonLogPath} --archive-ttl {archive_ttl} --verbosity 1"
-	add2systemd(name="validator", user=vuser, start=cmd) # post="/usr/bin/python3 /usr/src/mytonctrl/mytoncore.py -e \"validator down\""
 
 	# Получить внешний ip адрес
 	ip = get_own_ip()
