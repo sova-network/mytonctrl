@@ -399,6 +399,7 @@ def Refresh(ton, args):
 		liteClient = Dict()
 		liteClient["appPath"] = "/usr/bin/ton/lite-client/lite-client"
 		liteClient["configPath"] = "/usr/bin/ton/global.config.json"
+		liteClient["liteServer"] = {}
 		liteClient["liteServer"]["pubkeyPath"] = "/var/ton-work/keys/liteserver.pub"
 		liteClient["liteServer"]["ip"] = "127.0.0.1"
 		liteClient["liteServer"]["port"] = config.liteservers[0].port
