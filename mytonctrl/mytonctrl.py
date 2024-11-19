@@ -420,6 +420,7 @@ def Refresh(ton, args):
 		validatorWalletName = "validator_wallet_001"
 		ton.SetSettings("validatorWalletName", validatorWalletName)
 		validatorWallet = ton.GetLocalWallet(validatorWalletName)
+		ton.SetWalletVersion(validatorWallet, "v1")
 		print(validatorWallet)
 		ton.SetSettings("validatorWallet", validatorWallet)
 
