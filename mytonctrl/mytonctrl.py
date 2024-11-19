@@ -46,6 +46,8 @@ from mytonctrl.utils import GetItemFromList, timestamp2utcdatetime, fix_git_conf
 
 import sys, getopt, os
 
+from mytoninstaller.config import GetConfig
+
 
 def Init(local, ton, console, argv):
 	# Load translate table
@@ -70,6 +72,7 @@ def Init(local, ton, console, argv):
 
 	console.AddItem("update", inject_globals(Update), local.translate("update_cmd"))
 	console.AddItem("upgrade", inject_globals(Upgrade), local.translate("upgrade_cmd"))
+	console.AddItem("refresh", inject_globals(Refresh), local.translate("refresh_cmd"))
 	console.AddItem("installer", inject_globals(Installer), local.translate("installer_cmd"))
 	console.AddItem("status", inject_globals(PrintStatus), local.translate("status_cmd"))
 	console.AddItem("status_modes", inject_globals(mode_status), local.translate("status_modes_cmd"))
@@ -366,6 +369,39 @@ def Upgrade(ton, args):
 				set_node_argument(ton.local, ["--state-ttl", "-d"])
 		except Exception as e:
 			color_print(f"{{red}}Failed to set node argument: {e} {{endc}}")
+	if exitCode == 0:
+		text = "Upgrade - {green}OK{endc}"
+	else:
+		text = "Upgrade - {red}Error{endc}"
+	color_print(text)
+#end define
+
+def Refresh(ton, args):
+	# bugfix if the files are in the wrong place
+	liteClient = ton.GetSettings("liteClient")
+	configPath = liteClient.get("configPath")
+	pubkeyPath = liteClient.get("liteServer").get("pubkeyPath")
+	if "/usr/bin/ton" in pubkeyPath:
+		liteClient["liteServer"]["pubkeyPath"] = "/var/ton-work/keys/liteserver.pub"
+	ton.SetSettings("liteClient", liteClient)
+	validatorConsole = ton.GetSettings("validatorConsole")
+	if validatorConsole is not None:
+		config = GetConfig(path="/var/ton-work/db/config.json")
+		validatorConsole.appPath = "/usr/local/bin/validator-engine-console"
+		validatorConsole.privKeyPath = "/var/ton-work/keys/client"
+		validatorConsole.pubKeyPath = "/var/ton-work/keys/server.pub"
+		validatorConsole.addr = f"127.0.0.1:{config.control[0].port}"
+	#end if
+	privKeyPath = validatorConsole.get("privKeyPath")
+	pubKeyPath = validatorConsole.get("pubKeyPath")
+	if "/usr/bin/ton" in privKeyPath:
+		validatorConsole["privKeyPath"] = "/var/ton-work/keys/client"
+	if "/usr/bin/ton" in pubKeyPath:
+		validatorConsole["pubKeyPath"] = "/var/ton-work/keys/server.pub"
+	ton.SetSettings("validatorConsole", validatorConsole)
+	#ton.SetSettings("validatorWalletName", wallet.name)
+
+	exitCode = 0
 	if exitCode == 0:
 		text = "Upgrade - {green}OK{endc}"
 	else:
