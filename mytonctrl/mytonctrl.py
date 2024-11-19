@@ -382,7 +382,7 @@ def Refresh(ton, args):
 	print(liteClient)
 	configPath = liteClient.get("configPath")
 	print(configPath)
-	pubkeyPath = liteClient.get("liteServer").get("pubkeyPath")
+	pubkeyPath = liteClient.get("pubkeyPath")
 	print(pubkeyPath)
 	if pubkeyPath is not None:
 		liteClient["liteServer"]["pubkeyPath"] = "/var/ton-work/keys/liteserver.pub"
