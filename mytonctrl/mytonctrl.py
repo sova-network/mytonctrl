@@ -381,11 +381,24 @@ def Refresh(ton, args):
 	liteClient = ton.GetSettings("liteClient")
 	configPath = liteClient.get("configPath")
 	pubkeyPath = liteClient.get("pubkeyPath")
+	print("liteClient: ", liteClient)
 	print("configPath: ", configPath)
 	print("pubkeyPath: ", pubkeyPath)
 	config = GetConfig(path="/var/ton-work/db/config.json")
+	#     "liteClient": {
+	#         "appPath": "/usr/bin/ton/lite-client/lite-client",
+	#         "configPath": "/usr/bin/ton/global.config.json",
+	#         "liteServer": {
+	#             "pubkeyPath": "/var/ton-work/keys/liteserver.pub",
+	#             "ip": "127.0.0.1",
+	#             "port": 16768
+	#         }
+	#     },
 
 	if pubkeyPath is None:
+		liteClient = Dict()
+		liteClient["appPath"] = "/usr/bin/ton/lite-client/lite-client"
+		liteClient["configPath"] = "/usr/bin/ton/global.config.json"
 		liteClient["liteServer"]["pubkeyPath"] = "/var/ton-work/keys/liteserver.pub"
 		liteClient["liteServer"]["ip"] = "127.0.0.1"
 		liteClient["liteServer"]["port"] = config.liteservers[0].port
