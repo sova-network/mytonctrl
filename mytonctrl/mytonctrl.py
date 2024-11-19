@@ -422,9 +422,6 @@ def Refresh(ton, args):
 		validatorWallet = ton.GetLocalWallet(validatorWalletName)
 		ton.SetWalletVersion(validatorWallet.addrB64, "v1")
 		print(validatorWallet)
-		walletsVersionList = Dict()
-		walletsVersionList[validatorWalletName] = "v1"
-		ton.SetSettings("walletsVersionList", walletsVersionList)
 
 	exitCode = 0
 	if exitCode == 0:
