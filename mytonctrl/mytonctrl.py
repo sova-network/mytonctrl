@@ -383,7 +383,7 @@ def Refresh(ton, args):
 	configPath = liteClient.get("configPath")
 	print(configPath)
 	if liteClient.get("pubkeyPath") is not None:
-		liteClient["liteServer"]["pubkeyPath"] = "/var/ton-work/keys/liteserver.pub"
+		liteClient["pubkeyPath"] = "/var/ton-work/keys/liteserver.pub"
 	ton.SetSettings("liteClient", liteClient)
 	validatorConsole = ton.GetSettings("validatorConsole")
 	print(liteClient)
