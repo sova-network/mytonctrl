@@ -379,8 +379,9 @@ def Upgrade(ton, args):
 def Refresh(ton, args):
 	# bugfix if the files are in the wrong place
 	liteClient = ton.GetSettings("liteClient")
+	print(liteClient)
 	configPath = liteClient.get("configPath")
-	pubkeyPath = liteClient.get("liteServer").get("pubkeyPath")
+	pubkeyPath = liteClient["pubkeyPath"]
 	if "/usr/bin/ton" in pubkeyPath:
 		liteClient["liteServer"]["pubkeyPath"] = "/var/ton-work/keys/liteserver.pub"
 	ton.SetSettings("liteClient", liteClient)
