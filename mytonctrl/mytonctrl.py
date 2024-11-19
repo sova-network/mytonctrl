@@ -382,10 +382,11 @@ def Refresh(ton, args):
 	print(liteClient)
 	configPath = liteClient.get("configPath")
 	pubkeyPath = liteClient["pubkeyPath"]
-	if "/usr/bin/ton" in pubkeyPath:
+	if liteClient.get("pubkeyPath") is not None:
 		liteClient["liteServer"]["pubkeyPath"] = "/var/ton-work/keys/liteserver.pub"
 	ton.SetSettings("liteClient", liteClient)
 	validatorConsole = ton.GetSettings("validatorConsole")
+	print(liteClient)
 	if validatorConsole is not None:
 		config = GetConfig(path="/var/ton-work/db/config.json")
 		validatorConsole.appPath = "/usr/local/bin/validator-engine-console"
