@@ -381,15 +381,21 @@ def Refresh(ton, args):
 	liteClient = ton.GetSettings("liteClient")
 	configPath = liteClient.get("configPath")
 	pubkeyPath = liteClient.get("pubkeyPath")
-	if pubkeyPath is not None:
+	print("configPath: ", configPath)
+	print("pubkeyPath: ", pubkeyPath)
+	config = GetConfig(path="/var/ton-work/db/config.json")
+
+	if pubkeyPath is None:
 		liteClient["liteServer"]["pubkeyPath"] = "/var/ton-work/keys/liteserver.pub"
+		liteClient["liteServer"]["ip"] = "127.0.0.1"
+		liteClient["liteServer"]["port"] = config.liteservers[0].port
 	ton.SetSettings("liteClient", liteClient)
 
 	validatorConsole = ton.GetSettings("validatorConsole")
 	print("validatorConsole: ", validatorConsole)
 	if validatorConsole is None:
-		config = GetConfig(path="/var/ton-work/db/config.json")
-		print("Config: ", config)
+
+
 		validatorConsole = Dict()
 		validatorConsole["appPath"] = "/usr/local/bin/validator-engine-console"
 		validatorConsole["privKeyPath"] = "/var/ton-work/keys/client"
