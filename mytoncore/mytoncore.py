@@ -873,10 +873,38 @@ class MyTonCore():
 		config32 = Dict()
 		result = self.liteClient.Run("getconfig 32")
 		self.local.add_log("config32: {}".format(result), "debug")
-		config32["totalValidators"] = int(parse(result, "total:", ' '))
-		config32["mainValidators"] = int(parse(result, "main:", ' '))
-		config32["startWorkTime"] = int(parse(result, "utime_since:", ' '))
-		config32["endWorkTime"] = int(parse(result, "utime_until:", ' '))
+		# config32["totalValidators"] = int(parse(result, "total:", ' '))
+		# config32["mainValidators"] = int(parse(result, "main:", ' '))
+		# config32["startWorkTime"] = int(parse(result, "utime_since:", ' '))
+		# config32["endWorkTime"] = int(parse(result, "utime_until:", ' '))
+
+
+		# Parse and handle missing values
+		total = parse(result, "total:", ' ')
+		main = parse(result, "main:", ' ')
+		start = parse(result, "utime_since:", ' ')
+		end = parse(result, "utime_until:", ' ')
+
+		# Ensure values are parsed before converting to integers
+		if total is not None:
+			config32["totalValidators"] = int(total)
+		else:
+			config32["totalValidators"] = 0  # Default or raise an error
+
+		if main is not None:
+			config32["mainValidators"] = int(main)
+		else:
+			config32["mainValidators"] = 0
+
+		if start is not None:
+			config32["startWorkTime"] = int(start)
+		else:
+			config32["startWorkTime"] = 0
+
+		if end is not None:
+			config32["endWorkTime"] = int(end)
+		else:
+			config32["endWorkTime"] = 0
 
 		lines = result.split('\n')
 		validators = list()
