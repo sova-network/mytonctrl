@@ -876,6 +876,7 @@ class MyTonCore():
 		config32["mainValidators"] = int(parse(result, "main:", ' '))
 		config32["startWorkTime"] = int(parse(result, "utime_since:", ' '))
 		config32["endWorkTime"] = int(parse(result, "utime_until:", ' '))
+		self.local.add_log("config32: {}".format(config32), "debug")
 		lines = result.split('\n')
 		validators = list()
 		for line in lines:
@@ -2141,6 +2142,7 @@ class MyTonCore():
 	#end define
 
 	def GetSaveComplaints(self):
+		self.local.add_log("start GetSaveComplaints function", "debug")
 		timestamp = get_timestamp()
 		saveComplaints = self.local.db.get("saveComplaints")
 		if saveComplaints is None:
