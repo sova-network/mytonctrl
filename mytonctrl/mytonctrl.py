@@ -392,8 +392,8 @@ def Refresh(ton, args):
 		validatorConsole.pubKeyPath = "/var/ton-work/keys/server.pub"
 		validatorConsole.addr = f"127.0.0.1:{config.control[0].port}"
 	#end if
-	privKeyPath = validatorConsole.get("privKeyPath")
-	pubKeyPath = validatorConsole.get("pubKeyPath")
+	privKeyPath = validatorConsole["privKeyPath"]
+	pubKeyPath = validatorConsole["pubKeyPath"]
 	if "/usr/bin/ton" in privKeyPath:
 		validatorConsole["privKeyPath"] = "/var/ton-work/keys/client"
 	if "/usr/bin/ton" in pubKeyPath:
