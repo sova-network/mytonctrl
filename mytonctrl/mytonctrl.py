@@ -387,13 +387,14 @@ def Refresh(ton, args):
 
 	validatorConsole = ton.GetSettings("validatorConsole")
 	print("validatorConsole: ", validatorConsole)
-	if validatorConsole is not None:
+	if validatorConsole is None:
 		config = GetConfig(path="/var/ton-work/db/config.json")
 		print("Config: ", config)
-		validatorConsole.appPath = "/usr/local/bin/validator-engine-console"
-		validatorConsole.privKeyPath = "/var/ton-work/keys/client"
-		validatorConsole.pubKeyPath = "/var/ton-work/keys/server.pub"
-		validatorConsole.addr = f"127.0.0.1:{config.control[0].port}"
+		validatorConsole = Dict()
+		validatorConsole["appPath"] = "/usr/local/bin/validator-engine-console"
+		validatorConsole["privKeyPath"] = "/var/ton-work/keys/client"
+		validatorConsole["pubKeyPath"] = "/var/ton-work/keys/server.pub"
+		validatorConsole["addr"] = f"127.0.0.1:{config.control[0].port}"
 	#end if
 	print("validatorConsole2: ", validatorConsole)
 	# privKeyPath = validatorConsole.privKeyPath
