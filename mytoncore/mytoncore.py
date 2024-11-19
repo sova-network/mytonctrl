@@ -872,11 +872,12 @@ class MyTonCore():
 		self.local.add_log("start GetConfig32 function", "debug")
 		config32 = Dict()
 		result = self.liteClient.Run("getconfig 32")
+		self.local.add_log("config32: {}".format(result), "debug")
 		config32["totalValidators"] = int(parse(result, "total:", ' '))
 		config32["mainValidators"] = int(parse(result, "main:", ' '))
 		config32["startWorkTime"] = int(parse(result, "utime_since:", ' '))
 		config32["endWorkTime"] = int(parse(result, "utime_until:", ' '))
-		self.local.add_log("config32: {}".format(config32), "debug")
+
 		lines = result.split('\n')
 		validators = list()
 		for line in lines:
