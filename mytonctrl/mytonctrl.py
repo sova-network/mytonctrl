@@ -386,22 +386,22 @@ def Refresh(ton, args):
 	ton.SetSettings("liteClient", liteClient)
 
 	validatorConsole = ton.GetSettings("validatorConsole")
-	print(validatorConsole)
+	print("validatorConsole: ", validatorConsole)
 	if validatorConsole is not None:
 		config = GetConfig(path="/var/ton-work/db/config.json")
-		print(config)
+		print("Config: ", config)
 		validatorConsole.appPath = "/usr/local/bin/validator-engine-console"
 		validatorConsole.privKeyPath = "/var/ton-work/keys/client"
 		validatorConsole.pubKeyPath = "/var/ton-work/keys/server.pub"
 		validatorConsole.addr = f"127.0.0.1:{config.control[0].port}"
 	#end if
-	print(validatorConsole)
-	privKeyPath = validatorConsole.privKeyPath
-	pubKeyPath = validatorConsole.pubKeyPath
-	if "/usr/bin/ton" in privKeyPath:
-		validatorConsole["privKeyPath"] = "/var/ton-work/keys/client"
-	if "/usr/bin/ton" in pubKeyPath:
-		validatorConsole["pubKeyPath"] = "/var/ton-work/keys/server.pub"
+	print("validatorConsole2: ", validatorConsole)
+	# privKeyPath = validatorConsole.privKeyPath
+	# pubKeyPath = validatorConsole.pubKeyPath
+	# if "/usr/bin/ton" in privKeyPath:
+	# 	validatorConsole["privKeyPath"] = "/var/ton-work/keys/client"
+	# if "/usr/bin/ton" in pubKeyPath:
+	# 	validatorConsole["pubKeyPath"] = "/var/ton-work/keys/server.pub"
 	ton.SetSettings("validatorConsole", validatorConsole)
 	#ton.SetSettings("validatorWalletName", wallet.name)
 
