@@ -458,7 +458,7 @@
 			}
 		]
 	},
-	"mevton": {
+	"sova": {
 		"enabled": false,
 		"server_addr": "testnet-engine.mevton.com:30010",
 		"private_key_path":"/path/to/private_key.bin"
