@@ -71,11 +71,13 @@ Mytonctrl's documentation can be found at https://docs.ton.org/participate/run-n
 | Ubuntu 18.04 LTS (Bionic Beaver) | OK                       |
 | Ubuntu 20.04 LTS (Focal Fossa) | OK                       |
 | Ubuntu 22.04 LTS (Jammy Jellyfish) | OK                   |
+| Ubuntu 24.04 LTS (Noble Numbat) | OK                   |
 | Debian 8 | Error: Unable to locate package libgsl-dev   |
 | Debian 9 | Error: TON compilation error                 |
 | Debian 10 | OK                                         |
 
 # Installation
+Please note that during the installation and upgrade procedure, `mytonctrl` will need to escalate privileges using the sudo or su methods in order to upgrade / install system wide components. Depending on your environment, you may be prompted to enter the password for the root or sudo user.
 ## Installation scripts overview
 - `toninstaller.sh`: clones `TON` and` mytonctrl` sources to `/usr/src/ton` and`/usr/src/mytonctrl` folders, compiles programs from sources and writes them to `/usr/bin/`.
 - `mytoninstaller.py`: configures the validator and `mytonctrl`; generates validator connection keys.
