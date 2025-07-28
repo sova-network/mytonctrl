@@ -73,6 +73,9 @@ LOG_FILE=/var/log/btc_teleport/btc_teleport.log
     def init(self, reinstall=False, branch: str = 'master'):
         if os.path.exists(self.src_dir) and not reinstall:
             return
+        if self.ton.local.db.get('btcTeleportDisabled'):
+            self.local.add_log('Skip BTC Teleport installation', 'info')
+            return
         self.local.add_log('Installing btc_teleport', 'info')
         os.makedirs(self.keystore_path, mode=0o700, exist_ok=True)
         self.install(branch)
